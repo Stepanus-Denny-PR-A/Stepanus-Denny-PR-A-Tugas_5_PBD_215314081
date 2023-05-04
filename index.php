@@ -29,9 +29,9 @@ session_start();
 
     </style>
 </head>
-<body >
+<body style="background-color: antiquewhite;">
 
-<h1  style="color:red">Login</h1>
+<h1  style="color:red" class="Muter">Login</h1>
 <form method="post" action="cek.php">
     
     <label id="input_nama" style="margin-right: 10px;">Nama</label>
