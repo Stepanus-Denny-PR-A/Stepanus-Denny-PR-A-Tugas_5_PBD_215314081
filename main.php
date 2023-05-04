@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if(!isset($_SESSION['status'])){
+   header("Location: index.php");
+}
 require 'Fungsi.php';
 $Data = query('SELECT * FROM data_pengguna');
 ?>
