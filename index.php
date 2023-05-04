@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,6 +47,8 @@
     if($hasil=='false'){
         echo"Password atau username salah";
         $hasil=null;
+    }else{
+        $_SESSION["status"] = "true";
     }
     ?>
 
