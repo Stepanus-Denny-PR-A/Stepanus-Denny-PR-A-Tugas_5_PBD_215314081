@@ -1,78 +1,109 @@
-<?php
-require 'Fungsi.php';
-$Data = query('SELECT * FROM data_pengguna');
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>215314081</title>
-   <style>
-      body {
-         background-color: brown;
-         font-family: Arial, sans-serif;
-      }
-      h1 {
-         text-align: center;
-         color: black;
-         background-color: white;
-         padding: 20px;
-         border-radius: 10px;
-         box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      }
-      table {
-         border-collapse: collapse;
-         width: 80%;
-         margin: auto;
-         margin-top: 30px;
-         margin-bottom: 50px;
-      }
-      th, td {
-         border: 1px solid black;
-         padding: 10px;
-         text-align: left;
-         background-color: white;
-      }
-      th {
-         background-color: white;
-      }
-      li {
-         list-style-type: none;
-         margin-bottom: 10px;
-         font-size: 18px;
-      }
-      a {
-         background-color: #dc3545;
-         color: white;
-         padding: 8px 12px;
-         border-radius: 5px;
-         text-decoration: none;
-      }
-      a:hover {
-         background-color: black;
-      }
-   </style>
+    <title>Login Page</title>
+    <style type="text/css">
+        body {
+            background-color: #F8F8F8;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            box-shadow: 0px 2px 2px #CCCCCC;
+            padding: 20px;
+            margin: auto;
+            margin-top: 50px;
+            width: 350px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group input[type="text"], .form-group input[type="password"] {
+            width: 100%;
+            border: none;
+            background-color: #F0F0F0;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #4CAF50;
+            border: none;
+            color: #FFFFFF;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #3E8E41;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .error-msg {
+            color: #FF0000;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-   <h1>List Data</h1>
-   <div style="text-align: center">
-      <a href="Tambah.php">Tambah Data</a>
-   </div>
-   <table>
-      <tr>
-         <th>No</th>
-         <th>Data</th>
-         <th>Aksi</th>
-      </tr>
-      <?php $no = 1; foreach ($Data as $unto) { ?>
-         <tr>
-            <td><?= $no++ ?></td>
-            <td><?= $unto["DATA"] ?></td>
-            <td><a href="Hapus.php?id=<?= $unto["ID"] ?>">Hapus</a></td>
-         </tr>
-      <?php } ?>
-   </table>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        p{
+            color:red;
+        }
+        .ganti_warna:hover{
+            color:black;
+            background-color: red;
+            border: solid  5px black;
+        }
+        .Muter:hover{
+            transition: 1s;
+            transform: rotate(360deg);
+
+        }
+
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To_DO</title>
+</head>
+<body >
+<center>
+<h1  style="color:red">Login</h1>
+<form>
+    <label  id="input_nama">Nama:</label>
+    <input id="input_nama"style="position: relative; left: 3.3%;" />
+    <br><br>
+    <label id="input_password">Password:</label>
+    <input id="input_password"/>
+    <br><br>
+    <button class="ganti_warna" style="width: 10%;height:7%;position:relative;left: 3%;">OK</button>
+</form>
+</body>
+</html>
+
+    </form></center>
+    <?php
+    if(isset($_POST['submit'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Validate username and password
+        if($username == "admin" && $password == "admin123") {
+            echo "<script>alert('Login successful!');</script>";
+        } else {
+            echo "<div class='error-msg'>Invalid username or password!</div>";
+        }
+    }
+    ?>
+</div>
 </body>
 </html>
