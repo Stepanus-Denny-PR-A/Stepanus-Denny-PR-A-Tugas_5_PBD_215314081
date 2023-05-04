@@ -60,15 +60,21 @@ $Data = query('SELECT * FROM data_pengguna');
          background-color: lightblue;
          text-align: center;
       }
+
+      td.checked {
+      background: #888;
+      color: #fff;
+      text-decoration: line-through;
+      }
    </style>
 </head>
 <body>
    <h1>List Data</h1>
-   <div  >
-      <form  method="post" action="Tambah.php">
+   <div>
+      <form method="post" action="Tambah.php">
          <label for="name">Data yang ingin ditambahkan: </label>
          <input type="text" name="data" required>
-         <button type="submit" name="submit"  >Tambah</button>
+         <button type="submit" name="submit">Tambah</button>
       </form>
    </div>
    <table>
@@ -80,30 +86,57 @@ $Data = query('SELECT * FROM data_pengguna');
       <?php $no = 1; foreach ($Data as $Kumpulan_Data) { ?>
          <tr>
             <td><?= $no++ ?></td>
-            <td><?= $Kumpulan_Data["DATA"] ?></td>
-            <td><a href="Hapus.php?id=<?= $Kumpulan_Data["ID"] ?>">Hapus</a>||<a class="edit-link" data-id="<?= $Kumpulan_Data["ID"] ?>">Edit</a></td>
+            <td id="datanya-<?= $Kumpulan_Data["ID"] ?>" data-id="<?= $Kumpulan_Data["ID"] ?>"><?= $Kumpulan_Data["DATA"] ?></td>
+            <td>
+               <a href="Hapus.php?id=<?= $Kumpulan_Data["ID"] ?>">Hapus</a> ||
+               <a class="edit-link" data-id="<?= $Kumpulan_Data["ID"] ?>">Edit</a> ||
+               <a data-kondisi="<?= $Kumpulan_Data["Kondisi"] ?>" data-id="<?= $Kumpulan_Data["ID"] ?>" class="dataselesai" href="">Selesai</a>
+            </td>
          </tr>
       <?php } ?>
-      <script>
-         let editLinks = document.querySelectorAll(".edit-link");
-         editLinks.forEach(link => {
-            link.addEventListener("click", function() {
-               let person = prompt("Please enter your name:", "Harry Potter");
-               let id = this.dataset.id;
-               window.location.href = `Edit.php?name=${person}&id=${id}`;
+   </table>
+
+   <script>
+      let editLinks = document.querySelectorAll(".edit-link");
+      editLinks.forEach(link => {
+         link.addEventListener("click", function() {
+            let person = prompt("Masukan data baru:", "Kayang");
+            let id = this.dataset.id;
+            window.location.href = `Edit.php?name=${person}&id=${id}`;
+         });
+      });
+
+      try {
+         let data = document.querySelectorAll("[id^='datanya-']");
+         let list = document.querySelectorAll(".dataselesai");
+
+         list.forEach(item => {
+            let id = item.dataset.id;
+            let datanya = document.querySelector(`#datanya-${id}`);
+            if (item.getAttribute('data-kondisi') == '1') {
+               datanya.classList.add('checked');
+            }
+
+            item.addEventListener('click', function(ev) {
+               ev.preventDefault();
+               let kondisi = item.getAttribute('data-kondisi');
+               let id = item.dataset.id;
+               let datanya = document.querySelector(`#datanya-${id}`);
+
+               if (kondisi == '0') {
+                  window.location.href = `kondisi.php?kondisi=true&id=${id}`;
+                  datanya.classList.add('checked');
+                  item.setAttribute('data-kondisi', '1');
+               } else {
+                  window.location.href = `kondisi.php?kondisi=false&id=${id}`;
+                  datanya.classList.remove('checked');
+                  item.setAttribute('data-kondisi', '0');
+               }
             });
          });
-         // Atau
-         // let editLinks = document.querySelectorAll(".edit-link");
-         // editLinks.forEach(function(link) {
-         //    link.addEventListener("click", function() {
-         //       let person = prompt("Please enter your name:", "Harry Potter");
-         //       let id = this.dataset.id;
-         //       window.location.href = 'Edit.php?name=' + person + '&id=' + id;
-         //    });
-         // });
-
-      </script>
-   </table>
+      } catch (error) {
+         alert("Terjadi kesalahan: " + error.message);
+      }
+   </script>
 </body>
 </html>

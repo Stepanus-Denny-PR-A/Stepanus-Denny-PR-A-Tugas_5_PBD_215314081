@@ -1,7 +1,5 @@
 <?php 
 $connect=mysqli_connect("localhost","root","","phpdasar");
-
-
 function query ($data){
     global $connect;
     $kumpulan_data=[];
