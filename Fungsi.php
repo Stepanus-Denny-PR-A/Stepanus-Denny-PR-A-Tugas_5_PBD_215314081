@@ -9,4 +9,11 @@ function query ($data){
     };
     return $kumpulan_data;
 };
+
+function satu_data($query){
+    global $connect;
+    $data=mysqli_query($connect,$query);
+    $datanya=mysqli_fetch_assoc($data);
+    return $datanya;
+}
  ?>

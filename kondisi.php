@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'Fungsi.php';
 $id = $_GET['id'];
 $kondisi=$_GET['kondisi'];
