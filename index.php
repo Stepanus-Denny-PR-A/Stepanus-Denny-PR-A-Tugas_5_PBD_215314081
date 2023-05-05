@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'Fungsi.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,9 +14,14 @@ session_start();
             color:black;
             background-color: red;
             border: solid  5px black;
+            
+        }
+        .Muter {
+        transition: 0.5s;
+        transform: rotate(0deg);
         }
         .Muter:hover{
-            transition: 1s;
+            transition: 0.5s;
             transform: rotate(360deg);
 
         }
@@ -41,18 +47,17 @@ session_start();
     <input id="input_password" name="password"/>
     <br><br>
     <button class="ganti_warna" name="submit" >OK</button>
+    <button class="ganti_warna" name="Tuser" style="margin-top:5px" ><a href="Tuser.php">Tambah User</a></button>
     <?php
     error_reporting(0);
     $hasil=$_GET['hasil'];
     if($hasil=='false'){
         echo"Password atau username salah";
-        $hasil=null;
-    }else{
-        $_SESSION["status"] = "true";
     }
     ?>
 
 </form>
+    
 
 </body>
 </html>

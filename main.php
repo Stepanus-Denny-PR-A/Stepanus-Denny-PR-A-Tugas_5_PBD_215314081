@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION['status'])){
+if(!isset($_SESSION['status']) && $_SESSION['status']=='true'){
    header("Location: index.php");
 }
 require 'Fungsi.php';
 $Data = query('SELECT * FROM data_pengguna');
+$ID=$_SESSION['ID'];
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +75,7 @@ $Data = query('SELECT * FROM data_pengguna');
 <body>
    <h1>List Data</h1>
    <div>
-      <form method="post" action="Tambah.php">
+      <form method="post" action="Tambah.php?ID=<?=$ID?>">
          <label for="name">Data yang ingin ditambahkan: </label>
          <input type="text" name="data" required>
          <button type="submit" name="submit">Tambah</button>
@@ -86,7 +87,9 @@ $Data = query('SELECT * FROM data_pengguna');
          <th>Data</th>
          <th>Tool</th>
       </tr>
-      <?php $no = 1; foreach ($Data as $Kumpulan_Data) { ?>
+      <?php $no = 1; foreach ($Data as $Kumpulan_Data) { 
+         if($Kumpulan_Data["Kunciasing"]==$ID ){
+         ?>
          <tr>
             <td><?= $no++ ?></td>
             <td id="datanya-<?= $Kumpulan_Data["ID"] ?>" data-id="<?= $Kumpulan_Data["ID"] ?>"><?= $Kumpulan_Data["DATA"] ?></td>
@@ -96,7 +99,7 @@ $Data = query('SELECT * FROM data_pengguna');
                <a data-kondisi="<?= $Kumpulan_Data["Kondisi"] ?>" data-id="<?= $Kumpulan_Data["ID"] ?>" class="dataselesai" href="">Selesai</a>
             </td>
          </tr>
-      <?php } ?>
+      <?php }} ?>
    </table>
 
    <script>
@@ -138,7 +141,7 @@ $Data = query('SELECT * FROM data_pengguna');
             });
          });
       } catch (error) {
-         alert("Terjadi kesalahan: " + error.message);
+         alert("Salah mu iki: " + error.message);
       }
    </script>
 </body>
